@@ -52,7 +52,9 @@ class ParsingUtil {
           .filter((productLink) => {
             return productLink !== null;
           });
-        resolve(productLinks);
+        resolve({
+          urls: productLinks
+        });
       }).catch((error) => {
         reject(error);
       });
