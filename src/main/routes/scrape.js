@@ -29,7 +29,7 @@ router.get('/productImages', (req, res) => {
     return;
   }
 
-  ParsingUtil.extractProductImageUrls(url)
+  ParsingUtil.extractProductData(url)
     .then((productImageUrls) => {
       res.send(productImageUrls);
     })

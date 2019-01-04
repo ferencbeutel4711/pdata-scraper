@@ -59,13 +59,16 @@ class ParsingUtil {
     });
   }
 
-  static extractProductImageUrls(url) {
+  static extractProductData(url) {
     return new Promise((resolve, reject) => {
       fetchAndParse(url).then((parsingResult) => {
         const productDataJson = JSON.parse(parsingResult.querySelector('#productDataJson').removeWhitespace().innerHTML);
         const imageIds = extractImageIdsFromProductData(productDataJson);
 
-        resolve(imageIds.map(imageUrlFromId));
+        resolve({
+          id: productDataJson.id,
+          images: imageIds.map(imageUrlFromId)
+        });
       }).catch((error) => {
         reject(error);
       })
