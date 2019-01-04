@@ -41,6 +41,12 @@ function imageUrlFromId(imageId) {
   return `https://i.otto.de/i/otto/${imageId}`;
 }
 
+function prependHost(productLinks) {
+  return productLinks.map((productLink) => {
+    return `https://www.otto.de${productLink}`
+  })
+}
+
 class ParsingUtil {
   static extractProductDetailPageUrls(url) {
     return new Promise((resolve, reject) => {
@@ -53,7 +59,7 @@ class ParsingUtil {
             return productLink !== null;
           });
         resolve({
-          urls: productLinks
+          urls: prependHost(productLinks)
         });
       }).catch((error) => {
         reject(error);
