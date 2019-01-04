@@ -21,7 +21,7 @@ router.get('/productLinks', (req, res) => {
     });
 });
 
-router.get('/productImages', (req, res) => {
+router.get('/productData', (req, res) => {
   const url = req.query.url;
 
   if (!UrlVerifier.isProductDetailPageUrl(url)) {
