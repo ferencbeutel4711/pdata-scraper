@@ -9,9 +9,15 @@ function fetchAndParse(url) {
       }
     };
     request(url, options, (err, res, body) => {
-      if (err || res.statusCode !== 200) {
-        reject('error during html fetching! err: ' + err + ' RC: ' + res.statusCode + ' response: ' + body);
+      if (err) {
+        reject('error during html fetching! err: ' + err);
+        return;
       }
+      if (res.statusCode !== 200) {
+        reject('bad response during html fetching! RC: ' + res.statusCode + ' response: ' + body);
+        return;
+      }
+
       const parsingOptions = {
         lowerCaseTagName: false,
         script: true,
