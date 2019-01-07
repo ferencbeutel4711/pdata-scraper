@@ -30,11 +30,11 @@ router.get('/productData', (req, res) => {
   }
 
   ParsingUtil.extractProductData(url)
-    .then((productImageUrls) => {
-      res.send(productImageUrls);
+    .then((productData) => {
+      res.send(productData);
     })
     .catch((error) => {
-      console.error('error during product image url scraping: ' + error);
+      console.error('error during product data scraping: ' + error);
       res.status(500).end();
     });
 });

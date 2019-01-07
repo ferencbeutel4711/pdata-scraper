@@ -37,10 +37,6 @@ function extractImageIdsFromProductData(productData) {
     })));
 }
 
-function imageUrlFromId(imageId) {
-  return `https://i.otto.de/i/otto/${imageId}`;
-}
-
 function prependHost(productLinks) {
   return productLinks.map((productLink) => {
     return `https://www.otto.de${productLink}`
@@ -75,7 +71,7 @@ class ParsingUtil {
 
         resolve({
           id: productDataJson.id,
-          images: imageIds.map(imageUrlFromId)
+          images: imageIds
         });
       }).catch((error) => {
         reject(error);
