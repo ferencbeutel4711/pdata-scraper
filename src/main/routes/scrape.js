@@ -4,39 +4,43 @@ const UrlVerifier = require('../util/UrlVerifier');
 const ParsingUtil = require('../util/ParsingUtil');
 
 router.get('/productLinks', (req, res) => {
-  const url = req.query.url;
+    const url = decodeURIComponent(req.query.url);
 
-  if (!UrlVerifier.isSearchResultPageUrl(url)) {
-    res.status(400).end();
-    return;
-  }
+    console.log('scraping url: ' + url);
 
-  ParsingUtil.extractProductDetailPageUrls(url)
-    .then((productDetailPageUrls) => {
-      res.send(productDetailPageUrls);
-    })
-    .catch((error) => {
-      console.error('error during product detail page url scraping: ' + error);
-      res.status(500).end();
-    });
+    if (!UrlVerifier.isSearchResultPageUrl(url)) {
+        res.status(400).end();
+        return;
+    }
+
+    ParsingUtil.extractProductDetailPageUrls(url)
+        .then((productDetailPageUrls) => {
+            res.send(productDetailPageUrls);
+        })
+        .catch((error) => {
+            console.error('error during product detail page url scraping: ' + error);
+            res.status(500).end();
+        });
 });
 
 router.get('/productData', (req, res) => {
-  const url = req.query.url;
+    const url = decodeURIComponent(req.query.url);
 
-  if (!UrlVerifier.isProductDetailPageUrl(url)) {
-    res.status(400).end();
-    return;
-  }
+    console.log('scraping url: ' + url);
 
-  ParsingUtil.extractProductData(url)
-    .then((productData) => {
-      res.send(productData);
-    })
-    .catch((error) => {
-      console.error('error during product data scraping: ' + error);
-      res.status(500).end();
-    });
+    if (!UrlVerifier.isProductDetailPageUrl(url)) {
+        res.status(400).end();
+        return;
+    }
+
+    ParsingUtil.extractProductData(url)
+        .then((productData) => {
+            res.send(productData);
+        })
+        .catch((error) => {
+            console.error('error during product data scraping: ' + error);
+            res.status(500).end();
+        });
 });
 
 module.exports = router;
